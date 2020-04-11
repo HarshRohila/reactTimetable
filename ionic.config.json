@@ -1,0 +1,7 @@
+{
+  "name": "reactTimetable",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
