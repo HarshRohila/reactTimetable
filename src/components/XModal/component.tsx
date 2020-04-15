@@ -2,7 +2,6 @@ import React, { useEffect, ReactNode } from 'react';
 import './style.scss';
 import ReactDOM from 'react-dom';
 
-const rootElement = document.getElementById('root');
 const modalParent = document.createElement('div');
 
 const XModal: React.FC<{closeModal: Function, children: ReactNode}> = ({ children, closeModal }) => {
@@ -11,13 +10,15 @@ const XModal: React.FC<{closeModal: Function, children: ReactNode}> = ({ childre
         if (this === e.target) closeModal();
     }
 
+    const ionApp = document.getElementsByTagName('ion-app')[0];
+
     useEffect(() => {
-        rootElement?.appendChild(modalParent);
+        ionApp?.appendChild(modalParent);
 
         modalParent.addEventListener('click', onClick, false);
 
         return () => {
-            rootElement?.removeChild(modalParent);
+            ionApp?.removeChild(modalParent);
             modalParent.removeEventListener('click', onClick, false);
         }
     }, []);
