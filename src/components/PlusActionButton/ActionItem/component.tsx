@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { IonButton, IonText } from '@ionic/react';
 import './style.scss';
 import XModal from '../../XModal/component';
+import BreaksForm from './BreaksForm';
 
 const ActionItem: React.FC<{ label: string }> = ( {label} ) => {
 
@@ -15,7 +16,7 @@ const ActionItem: React.FC<{ label: string }> = ( {label} ) => {
         {showModal ? 
             <XModal 
                 closeModal={() => setShowModal(false)}>
-                <div className="modal-content">Modal content</div>
+                <BreaksForm></BreaksForm>
             </XModal> : 
             false}
     </IonButton>
