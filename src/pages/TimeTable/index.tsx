@@ -7,7 +7,7 @@ const TimeTable: React.FC = () => {
     const days = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
                     .map(i => {
                         return (
-                            <IonItem>
+                            <IonItem key={i} color="primary">
                                 <IonLabel>
                                     {i}
                                 </IonLabel>
