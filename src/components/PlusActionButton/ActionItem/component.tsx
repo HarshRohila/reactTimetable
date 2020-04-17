@@ -1,25 +1,27 @@
 import React, { useState } from 'react';
-import { IonButton, IonText } from '@ionic/react';
+import { IonFabButton, IonIcon } from '@ionic/react';
 import './style.scss';
 import XModal from '../../XModal/component';
 import BreaksForm from './BreaksForm';
 
-const ActionItem: React.FC<{ label: string }> = ( {label} ) => {
+const ActionItem: React.FC<{ label: string, icon: string }> = ( {label, icon} ) => {
 
     const [showModal, setShowModal] = useState(false);
 
     return (
-    <IonButton size="small" color="secondary" onClick={() => setShowModal(true)}>
-        <IonText color="light">
-            <p>{label}</p>
-        </IonText>
+    <IonFabButton 
+        size="small" 
+        color="secondary"
+        data-desc={label}
+        onClick={() => setShowModal(true)}>
+        <IonIcon icon={icon} />
         {showModal ? 
             <XModal 
                 closeModal={() => setShowModal(false)}>
                 <BreaksForm></BreaksForm>
             </XModal> : 
             false}
-    </IonButton>
+    </IonFabButton>
 )};
 
 export default ActionItem;
