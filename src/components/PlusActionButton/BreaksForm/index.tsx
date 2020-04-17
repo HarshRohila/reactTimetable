@@ -10,7 +10,7 @@ const BreaksForm: React.FC = () => {
 
     const durationChips = durationLabels.map(i => {
         return (
-            <IonChip outline color="primary">
+            <IonChip outline color="primary" key={i}>
                 <IonLabel>{i}</IonLabel>
             </IonChip>
         )
