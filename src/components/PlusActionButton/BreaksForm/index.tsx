@@ -1,5 +1,5 @@
-import React from 'react';
-import { IonDatetime, IonHeader, IonTitle, IonItem, IonLabel, IonChip, IonCard, IonCardContent, IonInput } from '@ionic/react';
+import React, { Fragment } from 'react';
+import { IonDatetime, IonItem, IonLabel, IonChip, IonInput } from '@ionic/react';
 // import './style.scss';
 
 const BreaksForm: React.FC = () => {
@@ -17,31 +17,25 @@ const BreaksForm: React.FC = () => {
     })
 
     return (
-        <IonCard>
-            <IonCardContent>
-                <IonHeader>
-                    <IonTitle>Add Break</IonTitle>
-                </IonHeader>
+        <Fragment>
+            <IonItem>
+                <IonLabel>From</IonLabel>
+                <IonDatetime displayFormat="HH:mm"></IonDatetime>
+            </IonItem>
 
-                <IonItem>
-                    <IonLabel>From</IonLabel>
-                    <IonDatetime displayFormat="HH:mm"></IonDatetime>
-                </IonItem>
+            <IonLabel>Duration</IonLabel>
+            {durationChips}
 
-                <IonLabel>Duration</IonLabel>
-                {durationChips}
+            <IonItem>
+                <IonLabel>To</IonLabel>
+                <IonDatetime displayFormat="HH:mm"></IonDatetime>
+            </IonItem>
 
-                <IonItem>
-                    <IonLabel>To</IonLabel>
-                    <IonDatetime displayFormat="HH:mm"></IonDatetime>
-                </IonItem>
-
-                <IonItem>
-                    <IonLabel>Label</IonLabel>
-                    <IonInput placeholder="Label"></IonInput>
-                </IonItem>
-            </IonCardContent>
-        </IonCard>
+            <IonItem>
+                <IonLabel>Label</IonLabel>
+                <IonInput placeholder="Label"></IonInput>
+            </IonItem>
+        </Fragment>
     )
 }
 

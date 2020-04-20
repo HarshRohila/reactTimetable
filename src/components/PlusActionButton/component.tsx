@@ -13,10 +13,10 @@ const PlusActionButton: React.FC = () => {
             </IonFabButton>
 
             <IonFabList side="top">
-                <ActionItem label="Break" icon={pauseCircleOutline}>
+                <ActionItem label="Break" icon={pauseCircleOutline} title="Add Break">
                     <BreaksForm></BreaksForm>
                 </ActionItem>
-                <ActionItem label="Working Hours" icon={timeOutline}>
+                <ActionItem label="Working Hours" icon={timeOutline} title="Set Work Hours">
                     <WorkHoursForm />
                 </ActionItem>
             </IonFabList>

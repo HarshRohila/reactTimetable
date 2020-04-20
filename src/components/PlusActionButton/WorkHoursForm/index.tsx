@@ -1,5 +1,5 @@
-import React from 'react';
-import { IonDatetime, IonHeader, IonTitle, IonItem, IonLabel, IonChip, IonCard, IonCardContent, IonInput, IonCheckbox } from '@ionic/react';
+import React, { Fragment } from 'react';
+import { IonDatetime, IonItem, IonLabel, IonChip, IonInput, IonCheckbox, IonButton } from '@ionic/react';
 import './style.scss';
 
 const WorkHoursForm: React.FC = () => {
@@ -15,36 +15,33 @@ const WorkHoursForm: React.FC = () => {
                     });
 
     return (
-        <IonCard>
-            <IonCardContent>
-                <IonHeader>
-                    <IonTitle>Set Work Hours</IonTitle>
-                </IonHeader>
+        <Fragment>
+            <IonItem>
+                <IonLabel>From</IonLabel>
+                <IonDatetime displayFormat="HH:mm"></IonDatetime>
+            </IonItem>
 
-                <IonItem>
-                    <IonLabel>From</IonLabel>
-                    <IonDatetime displayFormat="HH:mm"></IonDatetime>
-                </IonItem>
+            <IonItem>
+                <IonLabel>To</IonLabel>
+                <IonDatetime displayFormat="HH:mm"></IonDatetime>
+            </IonItem>
 
-                <IonItem>
-                    <IonLabel>To</IonLabel>
-                    <IonDatetime displayFormat="HH:mm"></IonDatetime>
-                </IonItem>
+            <IonItem>
+                <IonLabel>Same for all work days?</IonLabel>
+                <IonCheckbox checked={false} onIonChange={() => {}} />
+            </IonItem>
 
-                <IonItem>
-                    <IonLabel>Same for all work days?</IonLabel>
-                    <IonCheckbox checked={false} onIonChange={() => {}} />
-                </IonItem>
+            <IonLabel>Days</IonLabel>
+            {days}
+            
+            <IonItem>
+                <IonLabel>Label</IonLabel>
+                <IonInput placeholder="Label"></IonInput>
+            </IonItem>
 
-                <IonLabel>Days</IonLabel>
-                {days}
-                
-                <IonItem>
-                    <IonLabel>Label</IonLabel>
-                    <IonInput placeholder="Label"></IonInput>
-                </IonItem>
-            </IonCardContent>
-        </IonCard>
+            <IonButton size="small">Save</IonButton>
+            <IonButton size="small">Close</IonButton>
+        </Fragment>
     )
 }
 
