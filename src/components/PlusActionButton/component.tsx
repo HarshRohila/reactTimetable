@@ -1,9 +1,8 @@
 import React from 'react';
 import { IonFab, IonFabButton, IonIcon, IonFabList } from '@ionic/react';
-import ActionItem from './ActionItem/component';
-import { add, timeOutline, pauseCircleOutline } from 'ionicons/icons'; 
-import BreaksForm from './BreaksForm';
-import WorkHoursForm from './WorkHoursForm';
+import { add } from 'ionicons/icons'; 
+import BreakActionItem from './BreakActionItem';
+import WorkHoursActionItem from './WorkHoursActionItem';
 
 const PlusActionButton: React.FC = () => {
     return (
@@ -13,12 +12,8 @@ const PlusActionButton: React.FC = () => {
             </IonFabButton>
 
             <IonFabList side="top">
-                <ActionItem label="Break" icon={pauseCircleOutline} title="Add Break">
-                    <BreaksForm></BreaksForm>
-                </ActionItem>
-                <ActionItem label="Working Hours" icon={timeOutline} title="Set Work Hours">
-                    <WorkHoursForm />
-                </ActionItem>
+                <BreakActionItem></BreakActionItem>
+                <WorkHoursActionItem />
             </IonFabList>
         </IonFab>
     );
