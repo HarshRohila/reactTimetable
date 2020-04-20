@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { IonFabButton, IonIcon, IonCard, IonCardContent, IonHeader, IonTitle } from '@ionic/react';
+import { IonFabButton, IonIcon } from '@ionic/react';
 import './style.scss';
 import XModal from '../../XModal/component';
+import ModalCard from '../ModalCards/ModalCard';
 
 interface Params {
     label: string, 
@@ -11,17 +12,6 @@ interface Params {
 const ActionItem: React.FC<Params> = ( {label, icon, children, title} ) => {
 
     const [showModal, setShowModal] = useState(false);
-
-    const modalCard = (
-        <IonCard>
-            <IonCardContent>
-                <IonHeader>
-                    <IonTitle>{title}</IonTitle>
-                </IonHeader>
-                {children}
-            </IonCardContent>
-        </IonCard>
-    );
 
     return (
     <IonFabButton 
@@ -33,7 +23,9 @@ const ActionItem: React.FC<Params> = ( {label, icon, children, title} ) => {
         {showModal ? 
             <XModal 
                 closeModal={() => setShowModal(false)}>
-                {modalCard}
+                <ModalCard title={title}>
+                    {children}
+                </ModalCard>
             </XModal> : 
             false}
     </IonFabButton>
