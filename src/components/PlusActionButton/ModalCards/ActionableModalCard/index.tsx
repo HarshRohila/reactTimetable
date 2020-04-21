@@ -7,9 +7,9 @@ interface ContainerProps { title: string, onClose: Function }
 
 const ActionableModalCard: React.FC<ContainerProps> = ({title, children, onClose}) => {
 
-    const onClick = () => {
+    const onClick = (e: React.MouseEvent<HTMLIonButtonElement, MouseEvent>) => {
+        e.stopPropagation();
         onClose();
-        console.log('onClose');
     }
 
     const buttons = (

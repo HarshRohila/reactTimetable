@@ -11,17 +11,13 @@ const WorkHoursActionItem: React.FC<ContainerProps> = () => {
 
     const [showModal, setShowModal] = useState(false);
 
-    const workHoursChild = <ActionableModalCard title="Set Work Hours" onClose={() => {
-        console.log('he')
-        setShowModal(false);
-        console.log(showModal)
-        }}>
+    const modal = <ActionableModalCard title="Set Work Hours" onClose={() => setShowModal(false)}>
         <WorkHoursForm />
     </ActionableModalCard>
 
     return (
         <ActionItem label="Working Hours" icon={timeOutline} showModal={() => setShowModal(true)}>
-            {showModal ? workHoursChild : false}
+            {showModal ? modal : false}
         </ActionItem>
     );
 };
