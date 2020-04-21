@@ -1,41 +1,21 @@
-import React, { useState } from 'react';
-import { IonFabButton, IonIcon, IonCard, IonCardContent, IonHeader, IonTitle } from '@ionic/react';
+import React from 'react';
+import { IonFabButton, IonIcon } from '@ionic/react';
 import './style.scss';
-import XModal from '../../XModal/component';
 
 interface Params {
     label: string, 
     icon: string,
-    title: string
+    showModal: Function
 }
-const ActionItem: React.FC<Params> = ( {label, icon, children, title} ) => {
-
-    const [showModal, setShowModal] = useState(false);
-
-    const modalCard = (
-        <IonCard>
-            <IonCardContent>
-                <IonHeader>
-                    <IonTitle>{title}</IonTitle>
-                </IonHeader>
-                {children}
-            </IonCardContent>
-        </IonCard>
-    );
-
+const ActionItem: React.FC<Params> = ( {label, icon, children, showModal} ) => {
     return (
     <IonFabButton 
         size="small" 
         color="secondary"
         data-desc={label}
-        onClick={() => setShowModal(true)}>
+        onClick={() => showModal()}>
         <IonIcon icon={icon} />
-        {showModal ? 
-            <XModal 
-                closeModal={() => setShowModal(false)}>
-                {modalCard}
-            </XModal> : 
-            false}
+        {children}
     </IonFabButton>
 )};
 

@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { IonDatetime, IonItem, IonLabel, IonChip, IonInput, IonCheckbox, IonButton } from '@ionic/react';
+import { IonDatetime, IonItem, IonLabel, IonChip, IonInput, IonCheckbox } from '@ionic/react';
 import './style.scss';
 
 const WorkHoursForm: React.FC = () => {
@@ -38,9 +38,6 @@ const WorkHoursForm: React.FC = () => {
                 <IonLabel>Label</IonLabel>
                 <IonInput placeholder="Label"></IonInput>
             </IonItem>
-
-            <IonButton size="small">Save</IonButton>
-            <IonButton size="small">Close</IonButton>
         </Fragment>
     )
 }
