@@ -1,7 +1,7 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { IonButton } from '@ionic/react';
 import ModalCard from '../ModalCard';
-// import './ExploreContainer.css';
+import './style.scss';
 
 interface ContainerProps { title: string, onClose: Function }
 
@@ -13,10 +13,10 @@ const ActionableModalCard: React.FC<ContainerProps> = ({title, children, onClose
     }
 
     const buttons = (
-        <Fragment>
+        <div className="buttons-container">
             <IonButton size="small">Save</IonButton>
             <IonButton size="small" onClick={onClick}>Close</IonButton>
-        </Fragment>
+        </div>
     );
 
     return (

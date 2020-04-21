@@ -8,8 +8,8 @@ const WorkHoursForm: React.FC = () => {
                     .map(i => {
                         return (
                                 <IonChip outline color="primary" key={i}>
+                                    <IonCheckbox></IonCheckbox>
                                     <IonLabel>{i}</IonLabel>
-                                    <IonCheckbox />
                                 </IonChip>
                         );
                     });
