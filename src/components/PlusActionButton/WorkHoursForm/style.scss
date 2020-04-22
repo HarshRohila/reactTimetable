@@ -1,5 +1,6 @@
 ion-chip {
     position: relative;
+    padding: 0;
     ion-checkbox {
         position: absolute;
         left: 0;
@@ -8,7 +9,16 @@ ion-chip {
         opacity: 0;
     }
 
+    ion-label {
+        padding: 7px 12px;
+    }
+
     ion-checkbox.checkbox-checked + ion-label {
-        background-color: red;
+        background-color: var(--ion-color-primary);
+        color: var(--ion-color-light);
+        height: 100%;
+        width: 100%;
+        padding: 7px 12px;
+        line-height: 17px;
     }
 }
