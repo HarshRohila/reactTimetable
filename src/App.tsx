@@ -3,6 +3,7 @@ import { Redirect, Route } from 'react-router-dom';
 import { IonApp, IonRouterOutlet } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import Home from './pages/Home';
+import { Plugins } from '@capacitor/core';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -24,15 +25,42 @@ import '@ionic/react/css/display.css';
 import './theme/variables.css';
 import TimeTable from './pages/TimeTable';
 
-const App: React.FC = () => (
-  <IonApp>
-    <IonReactRouter>
-      <IonRouterOutlet>
-        <Route path="/home" component={Home} exact={true} />
-        <Route exact path="/" render={() => <Redirect to="/home" />} />
-      </IonRouterOutlet>
-    </IonReactRouter>
-  </IonApp>
-);
+const { Storage } = Plugins;
+const WORK_HOURS = 'workHours';
+const WORK_DAYS = 'workDays';
+
+const App: React.FC = () => {
+
+    Storage.get({ key: WORK_HOURS }).then(async ({ value }) => {
+        if (!value) {
+            const workHours = {
+                start: 900,
+                end: 1500
+            };
+            await Storage.set({ key: WORK_HOURS, value: JSON.stringify(workHours) });
+
+            const workDays = {
+                MON: true, TUE: true, WED: true,
+                THU: true, FRI: true, Sat: false,
+                SUN: false
+            };
+
+            await Storage.set({ key: WORK_DAYS, value: JSON.stringify(workDays) });
+        } else {
+            console.log('not first')
+        }
+    });
+
+    return (
+            <IonApp>
+                <IonReactRouter>
+                <IonRouterOutlet>
+                    <Route path="/home" component={Home} exact={true} />
+                    <Route exact path="/" render={() => <Redirect to="/home" />} />
+                </IonRouterOutlet>
+                </IonReactRouter>
+            </IonApp>
+        );
+    }
 
 export default App;
