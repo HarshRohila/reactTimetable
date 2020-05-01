@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { pauseCircleOutline } from 'ionicons/icons';
-import ModalCard from '../ModalCards/ModalCard';
-import BreaksForm from '../BreaksForm';
-import ActionItem from '../ActionItem/component';
+import ModalCard from '../../ModalCards/ModalCard';
+import BreaksForm from './BreaksForm';
+import ActionItem from '../../ActionItem/component';
 // import './ExploreContainer.css';
 
 interface ContainerProps { }

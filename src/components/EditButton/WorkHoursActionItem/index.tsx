@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { timeOutline } from 'ionicons/icons';
-import ActionableModalCard from '../ModalCards/ActionableModalCard';
-import WorkHoursForm from '../WorkHoursForm';
-import ActionItem from '../ActionItem/component';
-// import './ExploreContainer.css';
+import ActionableModalCard from '../../ModalCards/ActionableModalCard';
+import WorkHoursForm from './WorkHoursForm';
+import ActionItem from '../../ActionItem/component';
 
 interface ContainerProps { }
 
@@ -16,7 +15,7 @@ const WorkHoursActionItem: React.FC<ContainerProps> = () => {
     </ActionableModalCard>
 
     return (
-        <ActionItem label="Working Hours" icon={timeOutline} showModal={() => setShowModal(true)}>
+        <ActionItem label="Working Hours" labelPos="right" icon={timeOutline} showModal={() => setShowModal(true)}>
             {showModal ? modal : false}
         </ActionItem>
     );

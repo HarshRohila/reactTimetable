@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 import { IonCard, IonCardContent, IonHeader, IonTitle } from '@ionic/react';
-import XModal from '../../../XModal/component';
+import XModal from '../../XModal/component';
 // import './ExploreContainer.css';
 
 interface ContainerProps { title: string, buttons?: ReactElement, onClose: Function }
