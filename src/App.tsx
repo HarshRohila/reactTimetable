@@ -24,18 +24,17 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 import TimeTable from './pages/TimeTable';
+import { WORK_HOURS, WORK_DAYS } from './constants';
 
 const { Storage } = Plugins;
-const WORK_HOURS = 'workHours';
-const WORK_DAYS = 'workDays';
 
 const App: React.FC = () => {
 
     Storage.get({ key: WORK_HOURS }).then(async ({ value }) => {
         if (!value) {
             const workHours = {
-                start: 900,
-                end: 1500
+                start: '09:00',
+                end: '15:00'
             };
             await Storage.set({ key: WORK_HOURS, value: JSON.stringify(workHours) });
 
