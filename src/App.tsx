@@ -24,27 +24,31 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 import TimeTable from './pages/TimeTable';
-import { WORK_HOURS, WORK_DAYS } from './constants';
+import { DAYS } from './constants';
+import Day from './types/Day';
 
 const { Storage } = Plugins;
 
 const App: React.FC = () => {
 
-    Storage.get({ key: WORK_HOURS }).then(async ({ value }) => {
+    Storage.get({ key: DAYS }).then(async ({ value }) => {
         if (!value) {
-            const workHours = {
-                start: '09:00',
-                end: '15:00'
-            };
-            await Storage.set({ key: WORK_HOURS, value: JSON.stringify(workHours) });
+            const days = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
+            const daysObject:{[key: string]: Day} = {};
+            days.forEach((day: string) => {
+                daysObject[day] = {
+                    isWorkDay: true,
+                    workHours: {
+                        start: '09:00',
+                        end: '15:00'
+                    }
+                };
+                if (day === 'SAT' || day === 'SUN') {
+                    daysObject[day].isWorkDay = false;
+                }
+            });
 
-            const workDays = {
-                MON: true, TUE: true, WED: true,
-                THU: true, FRI: true, Sat: false,
-                SUN: false
-            };
-
-            await Storage.set({ key: WORK_DAYS, value: JSON.stringify(workDays) });
+            await Storage.set({ key: DAYS, value: JSON.stringify(daysObject) });
         } else {
             console.log('not first')
         }

@@ -3,50 +3,61 @@ import { IonDatetime, IonItem, IonLabel, IonChip, IonInput, IonCheckbox } from '
 import { Plugins } from '@capacitor/core';
 
 import './style.scss';
-import { WORK_HOURS } from '../../../../constants';
+import { DAYS } from '../../../../constants';
 
 const { Storage } = Plugins;
 
 const WorkHoursForm: React.FC = () => {
 
-    const days = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN']
-                    .map(i => {
-                        return (
-                                <IonChip outline color="primary" key={i}>
-                                    <IonCheckbox></IonCheckbox>
-                                    <IonLabel>{i}</IonLabel>
-                                </IonChip>
-                        );
-                    });
-
     const loadingTemplate = <h1>Loading...</h1>;
-    const [ startTime, setStartTime ] = useState('start');
-    const [ endTime, setEndTime ] = useState('end');
+    const [ startTime, setStartTime ] = useState('09:00');
+    const [ endTime, setEndTime ] = useState('15:00');
     const [ showLoading, setShowLoading ] = useState(true);
+    const [ days, setDays ] = useState<string[]>([]);
 
     useEffect(() => {
-        Storage.get({ key: WORK_HOURS }).then(({ value }) => {
+        Storage.get({ key: DAYS }).then(({ value }) => {
             if (!value) {
                 console.error('Work Hours not found');
             } else {
-                const workHours = JSON.parse( value );
-                const { start, end } = workHours;
-                setStartTime(start);
-                setEndTime(end);
+                const days = JSON.parse( value );
+                
+                const daysArray = Object.keys( days )
+                    .filter(k => days[k].isWorkDay);
+                
+                console.log( daysArray );
+                setDays(daysArray);
+
                 setShowLoading(false);
             }
         });
-    });
+    }, []);
+
+    const daysChips = days.map(k => (
+            <IonChip outline color="primary" key={k}>
+                <IonCheckbox></IonCheckbox>
+                <IonLabel>{k}</IonLabel>
+            </IonChip>
+        ));
 
     const template = <Fragment>
         <IonItem>
             <IonLabel>From</IonLabel>
-            <IonDatetime displayFormat="HH:mm" value={startTime}></IonDatetime>
+            <IonDatetime 
+                displayFormat="HH:mm" 
+                value={startTime} 
+                onIonChange={e => setStartTime(e.detail.value!)}
+                >
+            </IonDatetime>
         </IonItem>
 
         <IonItem>
             <IonLabel>To</IonLabel>
-            <IonDatetime displayFormat="HH:mm" value={endTime}></IonDatetime>
+            <IonDatetime 
+                displayFormat="HH:mm" 
+                value={endTime}
+                onIonChange={e => setEndTime(e.detail.value!)}>
+            </IonDatetime>
         </IonItem>
 
         <IonItem>
@@ -55,7 +66,7 @@ const WorkHoursForm: React.FC = () => {
         </IonItem>
 
         <IonLabel>Days</IonLabel>
-        {days}
+        {daysChips}
         
         <IonItem>
             <IonLabel>Label</IonLabel>
