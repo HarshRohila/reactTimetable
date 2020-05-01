@@ -25,7 +25,6 @@ const WorkHoursForm: React.FC = () => {
                 const daysArray = Object.keys( days )
                     .filter(k => days[k].isWorkDay);
                 
-                console.log( daysArray );
                 setDays(daysArray);
 
                 setShowLoading(false);
