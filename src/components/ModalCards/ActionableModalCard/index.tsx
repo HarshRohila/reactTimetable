@@ -14,8 +14,8 @@ const ActionableModalCard: React.FC<ContainerProps> = ({title, children, onClose
 
     const buttons = (
         <div className="buttons-container">
-            <IonButton size="small">Save</IonButton>
-            <IonButton size="small" onClick={onClick}>Close</IonButton>
+            <IonButton size="small">SAVE</IonButton>
+            <IonButton size="small" onClick={onClick}>CLOSE</IonButton>
         </div>
     );
 

@@ -2,3 +2,9 @@ div.buttons-container {
     display: flex;
     justify-content: space-evenly;
 }
+
+ion-button {
+    height: 32px;
+    width: 70px;
+    --border-radius: 20px;
+}

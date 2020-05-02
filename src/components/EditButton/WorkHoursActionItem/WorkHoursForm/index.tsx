@@ -34,7 +34,7 @@ const WorkHoursForm: React.FC = () => {
 
     const daysChips = days.map(k => (
             <IonChip outline color="primary" key={k}>
-                <IonCheckbox></IonCheckbox>
+                <IonCheckbox checked={true}></IonCheckbox>
                 <IonLabel>{k}</IonLabel>
             </IonChip>
         ));
@@ -61,16 +61,14 @@ const WorkHoursForm: React.FC = () => {
 
         <IonItem>
             <IonLabel>Same for all work days?</IonLabel>
-            <IonCheckbox checked={false} onIonChange={() => {}} />
+            <IonCheckbox checked={true} onIonChange={() => {}} />
         </IonItem>
 
-        <IonLabel>Days</IonLabel>
-        {daysChips}
-        
-        <IonItem>
-            <IonLabel>Label</IonLabel>
-            <IonInput placeholder="Label"></IonInput>
-        </IonItem>
+        <div>
+            <IonLabel>Days</IonLabel>
+            <div>{daysChips}</div>
+        </div>
+
     </Fragment>;
 
     return showLoading ? loadingTemplate : template;
