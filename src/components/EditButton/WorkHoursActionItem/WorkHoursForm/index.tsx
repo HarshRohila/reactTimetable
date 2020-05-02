@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect } from 'react';
-import { IonDatetime, IonItem, IonLabel, IonChip, IonInput, IonCheckbox } from '@ionic/react';
+import { IonDatetime, IonItem, IonLabel, IonChip, IonInput, IonCheckbox, IonCard, IonButton } from '@ionic/react';
 import { Plugins } from '@capacitor/core';
 
 import './style.scss';
@@ -39,6 +39,20 @@ const WorkHoursForm: React.FC = () => {
             </IonChip>
         ));
 
+    const [ isSelectAll, setIsSelectAll ] = useState(true);
+    const [ isWorkDaysWindowOpen, setIsWorkDaysWindowOpen ] = useState(false);
+
+    const workDaysWindow = 
+        <IonCard>
+            {['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'].map(k => (
+                <IonChip outline color="primary" key={k}>
+                    <IonCheckbox checked={true}></IonCheckbox>
+                    <IonLabel>{k}</IonLabel>
+                </IonChip>
+            ))}
+            <IonButton onClick={() => setIsWorkDaysWindowOpen(false)}>Done</IonButton>
+        </IonCard>
+
     const template = <Fragment>
         <IonItem>
             <IonLabel>From</IonLabel>
@@ -61,11 +75,14 @@ const WorkHoursForm: React.FC = () => {
 
         <IonItem>
             <IonLabel>Same for all work days?</IonLabel>
-            <IonCheckbox checked={true} onIonChange={() => {}} />
+            <IonCheckbox checked={isSelectAll} onIonChange={() => setIsSelectAll(!isSelectAll)} />
         </IonItem>
 
-        <div>
-            <IonLabel>Days</IonLabel>
+        <a onClick={() => setIsWorkDaysWindowOpen(true)}>Edit work days</a>
+        {isWorkDaysWindowOpen && workDaysWindow}
+
+        <div className={`days ${isSelectAll ? 'is-disabled' : ''}`}>
+            <IonLabel>Select days</IonLabel>
             <div>{daysChips}</div>
         </div>
 
