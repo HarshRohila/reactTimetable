@@ -6,14 +6,23 @@ import './style.scss';
 import { DAYS } from '../../../../constants';
 
 const { Storage } = Plugins;
+interface ContainerProps {
+    startTime: string,
+    setStartTime: Function,
 
-const WorkHoursForm: React.FC<{setOnSave: React.Dispatch<React.SetStateAction<() => void>>}> = ({ setOnSave }) => {
+    endTime: string,
+    setEndTime: Function,
 
+    days: { value: string, isChecked: boolean}[]
+    setDays: Function
+}
+
+const WorkHoursForm: React.FC<ContainerProps> = (props) => {
+
+    const {startTime, setStartTime, endTime, setEndTime, days, setDays} = props;
     const loadingTemplate = <h1>Loading...</h1>;
-    const [ startTime, setStartTime ] = useState('09:00');
-    const [ endTime, setEndTime ] = useState('15:00');
     const [ showLoading, setShowLoading ] = useState(true);
-    const [ days, setDays ] = useState<string[]>([]);
+
 
     useEffect(() => {
         Storage.get({ key: DAYS }).then(({ value }) => {
@@ -25,20 +34,29 @@ const WorkHoursForm: React.FC<{setOnSave: React.Dispatch<React.SetStateAction<()
                 const daysArray = Object.keys( days )
                     .filter(k => days[k].isWorkDay);
                 
-                setDays(daysArray);
+                const daysCheckList = daysArray.map(k => ({ value: k, isChecked: true}));
+                setDays(daysCheckList);
 
                 setShowLoading(false);
             }
         });
 
-        const onSave = () => console.log('save clicked')
-        setOnSave(() => onSave);
-    }, [ setOnSave ]);
+        
+    }, [ setDays ]);
 
-    const daysChips = days.map(k => (
-            <IonChip outline color="primary" key={k}>
-                <IonCheckbox checked={true}></IonCheckbox>
-                <IonLabel>{k}</IonLabel>
+    const updateCheckedList = (updatedValue: string, isChecked: boolean) => {
+        const index = days.findIndex(({value}) => value === updatedValue);
+        const newDaysCheckList = days.slice();
+        newDaysCheckList[index].isChecked = isChecked;
+        setDays(newDaysCheckList);
+    };
+
+    const daysChips = 
+        days.map(({value, isChecked}) => (
+            <IonChip outline color="primary" key={value}>
+                <IonCheckbox checked={isChecked} 
+                    onIonChange={e => updateCheckedList(value, e.detail.checked)} />
+                <IonLabel>{value}</IonLabel>
             </IonChip>
         ));
 

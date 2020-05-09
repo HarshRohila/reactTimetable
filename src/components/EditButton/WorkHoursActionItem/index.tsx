@@ -9,14 +9,31 @@ interface ContainerProps { }
 const WorkHoursActionItem: React.FC<ContainerProps> = () => {
 
     const [showModal, setShowModal] = useState(false);
-    const [onSave, setOnSave] = useState<() => void>(() => () => {});
+
+    const onSave = () => {
+        console.log(startTime)
+        console.log(endTime);
+        console.log(days)
+    }
+
+    const [ startTime, setStartTime ] = useState('09:00');
+    const [ endTime, setEndTime ] = useState('15:00');
+    const [ days, setDays ] = useState<{ value: string, isChecked: boolean}[]>([]);
 
     const modal = 
     <ActionableModalCard 
         title="Set Work Hours" 
         onClose={() => setShowModal(false)}
         onSave={onSave}>
-        <WorkHoursForm setOnSave={setOnSave} />
+        <WorkHoursForm 
+            startTime={startTime}
+            setStartTime={setStartTime}
+            
+            endTime={endTime}
+            setEndTime={setEndTime}
+
+            days={days}
+            setDays={setDays} />
     </ActionableModalCard>
 
     return (
