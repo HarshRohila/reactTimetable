@@ -1,11 +1,8 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import { IonDatetime, IonItem, IonLabel, IonChip, IonCheckbox } from '@ionic/react';
-import { Plugins } from '@capacitor/core';
-
 import './style.scss';
-import { DAYS } from '../../../../constants';
+import store from '../../../../store';
 
-const { Storage } = Plugins;
 interface ContainerProps {
     startTime: string,
     setStartTime: Function,
@@ -25,18 +22,16 @@ const WorkHoursForm: React.FC<ContainerProps> = (props) => {
 
 
     useEffect(() => {
-        Storage.get({ key: DAYS }).then(({ value }) => {
-            if (!value) {
+        store.getData().then(data => {
+            if (!data) {
                 console.error('Work Hours not found');
             } else {
-                const days = JSON.parse( value );
-                
-                const daysArray = Object.keys( days )
-                    .filter(k => days[k].isWorkDay);
+                const daysArray = Object.keys( data )
+                    .filter(k => data[k].isWorkDay);
                 
                 const daysCheckList = daysArray.map(k => ({ value: k, isChecked: true}));
-                setDays(daysCheckList);
 
+                setDays(daysCheckList);
                 setShowLoading(false);
             }
         });

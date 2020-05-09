@@ -3,10 +3,7 @@ import { timeOutline } from 'ionicons/icons';
 import ActionableModalCard from '../../ModalCards/ActionableModalCard';
 import WorkHoursForm from './WorkHoursForm';
 import ActionItem from '../../ActionItem/component';
-import { Plugins } from '@capacitor/core';
-import { DAYS } from '../../../constants';
-
-const { Storage } = Plugins;
+import store from '../../../store';
 
 interface ContainerProps { }
 
@@ -15,23 +12,22 @@ const WorkHoursActionItem: React.FC<ContainerProps> = () => {
     const [showModal, setShowModal] = useState(false);
 
     const onSave = () => {
-        console.log(startTime)
-        console.log(endTime);
-        console.log(days)
 
-        Storage.get({ key: DAYS }).then(({ value }) => {
-            const data = JSON.parse(value!);
+        store.getData().then(data => {
+            days.filter(day => day.isChecked)
+                .forEach(day => {
+                    data[day.value] = { 
+                        ...data[day.value], 
+                        workHours: {
+                            start: startTime, 
+                            end: endTime
+                        }
+                    };
+                });
 
-            days.forEach(day => {
-                if (day.isChecked) {
-                    data[day.value] = { ...data[day.value], workHours: {
-                        start: startTime, end: endTime
-                    } };
-                }
-            });
-
-            Storage.set({ key: DAYS, value: JSON.stringify(data) });
-        })
+            store.save( data );
+        });
+        
     }
 
     const [ startTime, setStartTime ] = useState('09:00');
