@@ -1,0 +1,11 @@
+div.time-table {
+    flex: 3;
+    margin: 20px;
+    display: flex;
+    flex-flow: column;
+    >div {
+        flex: 1;
+        border: 1px solid;
+        border-bottom: 0;
+    }
+}
