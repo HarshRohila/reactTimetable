@@ -4,15 +4,17 @@ import ActionableModalCard from '../../ModalCards/ActionableModalCard';
 import WorkHoursForm from './WorkHoursForm';
 import ActionItem from '../../ActionItem/component';
 import store from '../../../store';
+import { IonToast } from '@ionic/react';
 
 interface ContainerProps { }
 
 const WorkHoursActionItem: React.FC<ContainerProps> = () => {
 
-    const [ showModal, setShowModal ] = useState(false);
+    const [ showModal, setShowModal ] = useState( false );
     const [ startTime, setStartTime ] = useState('09:00');
     const [ endTime, setEndTime ] = useState('15:00');
     const [ days, setDays ] = useState<{ value: string, isChecked: boolean}[]>([]);
+    const [ showToast, setShowToast ] = useState( false );
 
     const onSave = () => {
 
@@ -28,7 +30,8 @@ const WorkHoursActionItem: React.FC<ContainerProps> = () => {
                     };
                 });
 
-            store.save( data );
+            store.save( data )
+                .then(() => setShowToast( true ));
         });
 
     }
@@ -52,14 +55,21 @@ const WorkHoursActionItem: React.FC<ContainerProps> = () => {
         </ActionableModalCard>
 
     return (
-        <ActionItem label="Working Hours" 
-            labelPos="right" 
-            icon={timeOutline} 
-            showModal={() => setShowModal(true)}>
+        <>
+            <ActionItem label="Working Hours" 
+                labelPos="right" 
+                icon={timeOutline} 
+                showModal={() => setShowModal(true)}>
 
-            {showModal ? modal : false}
+                {showModal ? modal : false}
 
-        </ActionItem>
+            </ActionItem>
+            <IonToast 
+                isOpen={showToast} 
+                message="Saved Successfully"
+                duration={200}
+                onDidDismiss={() => setShowToast( false )}/>
+        </>
     );
 };
 
