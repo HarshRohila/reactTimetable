@@ -23,7 +23,6 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 import Day from './types/Day';
-import TimeTablePage from './pages/TimeTablePage';
 import store from './store';
 
 const App: React.FC = () => {
