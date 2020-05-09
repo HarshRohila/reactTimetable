@@ -20,9 +20,8 @@ const getData = async () => {
     return jsonData;
 }
 
-const save = async (data: Data) => {
-    return Storage.set({ key: DAYS, value: JSON.stringify(data)});
-}
+const save = 
+    (data: Data) => Storage.set({ key: DAYS, value: JSON.stringify(data)});
 
 const store = {
     getData,

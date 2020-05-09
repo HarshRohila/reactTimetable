@@ -9,7 +9,10 @@ interface ContainerProps { }
 
 const WorkHoursActionItem: React.FC<ContainerProps> = () => {
 
-    const [showModal, setShowModal] = useState(false);
+    const [ showModal, setShowModal ] = useState(false);
+    const [ startTime, setStartTime ] = useState('09:00');
+    const [ endTime, setEndTime ] = useState('15:00');
+    const [ days, setDays ] = useState<{ value: string, isChecked: boolean}[]>([]);
 
     const onSave = () => {
 
@@ -27,32 +30,35 @@ const WorkHoursActionItem: React.FC<ContainerProps> = () => {
 
             store.save( data );
         });
-        
+
     }
 
-    const [ startTime, setStartTime ] = useState('09:00');
-    const [ endTime, setEndTime ] = useState('15:00');
-    const [ days, setDays ] = useState<{ value: string, isChecked: boolean}[]>([]);
-
     const modal = 
-    <ActionableModalCard 
-        title="Set Work Hours" 
-        onClose={() => setShowModal(false)}
-        onSave={onSave}>
-        <WorkHoursForm 
-            startTime={startTime}
-            setStartTime={setStartTime}
-            
-            endTime={endTime}
-            setEndTime={setEndTime}
+        <ActionableModalCard 
+            title="Set Work Hours" 
+            onClose={() => setShowModal(false)}
+            onSave={onSave}>
 
-            days={days}
-            setDays={setDays} />
-    </ActionableModalCard>
+            <WorkHoursForm 
+                startTime={startTime}
+                setStartTime={setStartTime}
+                
+                endTime={endTime}
+                setEndTime={setEndTime}
+
+                days={days}
+                setDays={setDays} />
+
+        </ActionableModalCard>
 
     return (
-        <ActionItem label="Working Hours" labelPos="right" icon={timeOutline} showModal={() => setShowModal(true)}>
+        <ActionItem label="Working Hours" 
+            labelPos="right" 
+            icon={timeOutline} 
+            showModal={() => setShowModal(true)}>
+
             {showModal ? modal : false}
+
         </ActionItem>
     );
 };
