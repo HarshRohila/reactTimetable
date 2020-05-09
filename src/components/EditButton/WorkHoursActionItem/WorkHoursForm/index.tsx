@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect } from 'react';
-import { IonDatetime, IonItem, IonLabel, IonChip, IonInput, IonCheckbox, IonCard, IonButton } from '@ionic/react';
+import { IonDatetime, IonItem, IonLabel, IonChip, IonCheckbox } from '@ionic/react';
 import { Plugins } from '@capacitor/core';
 
 import './style.scss';
@@ -7,7 +7,7 @@ import { DAYS } from '../../../../constants';
 
 const { Storage } = Plugins;
 
-const WorkHoursForm: React.FC = () => {
+const WorkHoursForm: React.FC<{setOnSave: React.Dispatch<React.SetStateAction<() => void>>}> = ({ setOnSave }) => {
 
     const loadingTemplate = <h1>Loading...</h1>;
     const [ startTime, setStartTime ] = useState('09:00');
@@ -30,7 +30,10 @@ const WorkHoursForm: React.FC = () => {
                 setShowLoading(false);
             }
         });
-    }, []);
+
+        const onSave = () => console.log('save clicked')
+        setOnSave(() => onSave);
+    }, [ setOnSave ]);
 
     const daysChips = days.map(k => (
             <IonChip outline color="primary" key={k}>
@@ -40,18 +43,6 @@ const WorkHoursForm: React.FC = () => {
         ));
 
     const [ isSelectAll, setIsSelectAll ] = useState(true);
-    const [ isWorkDaysWindowOpen, setIsWorkDaysWindowOpen ] = useState(false);
-
-    const workDaysWindow = 
-        <IonCard>
-            {['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'].map(k => (
-                <IonChip outline color="primary" key={k}>
-                    <IonCheckbox checked={true}></IonCheckbox>
-                    <IonLabel>{k}</IonLabel>
-                </IonChip>
-            ))}
-            <IonButton onClick={() => setIsWorkDaysWindowOpen(false)}>Done</IonButton>
-        </IonCard>
 
     const template = <Fragment>
         <IonItem>
@@ -77,9 +68,6 @@ const WorkHoursForm: React.FC = () => {
             <IonLabel>Same for all work days?</IonLabel>
             <IonCheckbox checked={isSelectAll} onIonChange={() => setIsSelectAll(!isSelectAll)} />
         </IonItem>
-
-        <a onClick={() => setIsWorkDaysWindowOpen(true)}>Edit work days</a>
-        {isWorkDaysWindowOpen && workDaysWindow}
 
         <div className={`days ${isSelectAll ? 'is-disabled' : ''}`}>
             <IonLabel>Select days</IonLabel>

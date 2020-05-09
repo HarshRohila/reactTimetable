@@ -9,9 +9,14 @@ interface ContainerProps { }
 const WorkHoursActionItem: React.FC<ContainerProps> = () => {
 
     const [showModal, setShowModal] = useState(false);
+    const [onSave, setOnSave] = useState<() => void>(() => () => {});
 
-    const modal = <ActionableModalCard title="Set Work Hours" onClose={() => setShowModal(false)}>
-        <WorkHoursForm />
+    const modal = 
+    <ActionableModalCard 
+        title="Set Work Hours" 
+        onClose={() => setShowModal(false)}
+        onSave={onSave}>
+        <WorkHoursForm setOnSave={setOnSave} />
     </ActionableModalCard>
 
     return (
