@@ -1,22 +1,15 @@
 $margin: 20px;
 $border-radius: 30px;
 
-.content-child {
-    display: flex;
-    height: 100%;
-}
-
 ion-list {
     height: 100%;
-    flex: 1;
-    display: flex;
-    flex-flow: column;
-    justify-content: center;
     &.list-ios {
         background-color: var(--ion-color-secondary);
     }
     ion-radio-group {
         height: calc(100% - #{$margin}*2);
+        width: 25%;
+        margin: $margin;
         display: flex;
         flex-direction: column;
         border: 1px solid;

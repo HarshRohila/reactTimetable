@@ -1,9 +1,8 @@
 import { IonContent, IonPage, IonItem, IonLabel, IonList, IonRadioGroup, IonRadio } from '@ionic/react';
 import React from 'react';
 import './style.scss';
-import TimeTable from './TimeTable';
 
-const TimeTablePage: React.FC = () => {
+const TimeTable: React.FC = () => {
 
     const days = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
                     .map(i => {
@@ -19,17 +18,14 @@ const TimeTablePage: React.FC = () => {
     return (
         <IonPage>
             <IonContent>
-                <div className="content-child">
-                    <IonList>
-                        <IonRadioGroup>
-                            {days}
-                        </IonRadioGroup>
-                    </IonList>
-                    <TimeTable />
-                </div>
+                <IonList>
+                    <IonRadioGroup>
+                        {days}
+                    </IonRadioGroup>
+                </IonList>
             </IonContent>
         </IonPage>
     );
 };
 
-export default TimeTablePage;
+export default TimeTable;

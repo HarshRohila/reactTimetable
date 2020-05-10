@@ -3,6 +3,7 @@ import { Redirect, Route } from 'react-router-dom';
 import { IonApp, IonRouterOutlet } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import Home from './pages/Home';
+import { Plugins } from '@capacitor/core';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -22,13 +23,16 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
+import TimeTable from './pages/TimeTable';
+import { DAYS } from './constants';
 import Day from './types/Day';
-import store from './store';
+
+const { Storage } = Plugins;
 
 const App: React.FC = () => {
 
-    store.getData().then(async data => {
-        if (!data) {
+    Storage.get({ key: DAYS }).then(async ({ value }) => {
+        if (!value) {
             const days = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
             const daysObject:{[key: string]: Day} = {};
             days.forEach((day: string) => {
@@ -44,7 +48,7 @@ const App: React.FC = () => {
                 }
             });
 
-            await store.save( daysObject );
+            await Storage.set({ key: DAYS, value: JSON.stringify(daysObject) });
         } else {
             console.log('not first')
         }
