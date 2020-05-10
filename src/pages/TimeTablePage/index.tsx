@@ -1,30 +1,16 @@
-import { IonContent, IonPage, IonItem, IonLabel, IonList, IonRadioGroup, IonRadio } from '@ionic/react';
+import { IonContent, IonPage } from '@ionic/react';
+
 import React from 'react';
 import './style.scss';
 import TimeTable from './TimeTable';
+import DaysPanel from '../../components/DaysPanel'
 
 const TimeTablePage: React.FC = () => {
-
-    const days = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
-                    .map(i => {
-                        return (
-                            <IonItem key={i} color="primary">
-                                <IonLabel>
-                                    {i}
-                                </IonLabel>
-                                <IonRadio value={i} />
-                            </IonItem>
-                        );
-                    });
     return (
         <IonPage>
             <IonContent>
                 <div className="content-child">
-                    <IonList>
-                        <IonRadioGroup>
-                            {days}
-                        </IonRadioGroup>
-                    </IonList>
+                    <DaysPanel />
                     <TimeTable />
                 </div>
             </IonContent>
