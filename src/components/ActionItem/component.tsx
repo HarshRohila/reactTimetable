@@ -5,11 +5,13 @@ import './style.scss';
 interface Params {
     label: string, 
     icon: string,
-    showModal: Function
+    showModal: Function,
+    labelPos?: string
 }
-const ActionItem: React.FC<Params> = ( {label, icon, children, showModal} ) => {
+const ActionItem: React.FC<Params> = ( {label, icon, children, showModal, labelPos = 'left'} ) => {
     return (
     <IonFabButton 
+        className={labelPos === 'right' ? 'right' : 'left'}
         size="small" 
         color="secondary"
         data-desc={label}

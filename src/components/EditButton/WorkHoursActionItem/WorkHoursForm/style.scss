@@ -24,3 +24,14 @@ ion-chip {
         color: var(--ion-color-light);
     }
 }
+
+.days {
+    padding: 10px 20px;
+    ion-label {
+        color: var(--ion-color-dark);
+    }
+    &.is-disabled {
+        opacity: 0.6;
+        pointer-events: none;
+    }
+}

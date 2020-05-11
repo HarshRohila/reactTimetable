@@ -1,4 +1,4 @@
-@import '../../../theme/colors';
+@import '../../theme/colors';
 
 .modal-content {
     background-color: yellow;
@@ -13,10 +13,21 @@ ion-fab-button {
 ion-fab-button[data-desc]::after {
     position: absolute;
     content: attr(data-desc);
-    right: 50px;
     bottom: 12px;
     color: var(--ion-color-light);
     background-color: var(--ion-color-dark);
     border-radius: 5px;
     padding: 2px 5px;
+}
+ion-fab-button[data-desc] {
+    &.left {
+        &::after {
+            right: 50px;
+        }
+    }
+    &.right {
+        &::after {
+            left: 50px;
+        }
+    }
 }

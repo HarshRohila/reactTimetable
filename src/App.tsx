@@ -22,17 +22,44 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
-import TimeTable from './pages/TimeTable';
+import Day from './types/Day';
+import store from './store';
 
-const App: React.FC = () => (
-  <IonApp>
-    <IonReactRouter>
-      <IonRouterOutlet>
-        <Route path="/home" component={Home} exact={true} />
-        <Route exact path="/" render={() => <Redirect to="/home" />} />
-      </IonRouterOutlet>
-    </IonReactRouter>
-  </IonApp>
-);
+const App: React.FC = () => {
+
+    store.getData().then(async data => {
+        if (!data) {
+            const days = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
+            const daysObject:{[key: string]: Day} = {};
+            days.forEach((day: string) => {
+                daysObject[day] = {
+                    isWorkDay: true,
+                    workHours: {
+                        start: '09:00',
+                        end: '15:00'
+                    }
+                };
+                if (day === 'SAT' || day === 'SUN') {
+                    daysObject[day].isWorkDay = false;
+                }
+            });
+
+            await store.save( daysObject );
+        } else {
+            console.log('not first')
+        }
+    });
+
+    return (
+            <IonApp>
+                <IonReactRouter>
+                <IonRouterOutlet>
+                    <Route path="/home" component={Home} exact={true} />
+                    <Route exact path="/" render={() => <Redirect to="/home" />} />
+                </IonRouterOutlet>
+                </IonReactRouter>
+            </IonApp>
+        );
+    }
 
 export default App;
