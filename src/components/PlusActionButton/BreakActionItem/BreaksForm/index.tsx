@@ -1,6 +1,6 @@
-import React, { Fragment } from 'react';
-import { IonDatetime, IonItem, IonLabel, IonChip, IonInput } from '@ionic/react';
-// import './style.scss';
+import React, { Fragment, FormEvent } from 'react';
+import { IonDatetime, IonItem, IonLabel, IonChip, IonInput, IonList, IonRadioGroup, IonRadio } from '@ionic/react';
+import './style.scss';
 
 const BreaksForm: React.FC = () => {
 
@@ -8,10 +8,17 @@ const BreaksForm: React.FC = () => {
     const hourLabels = ['1', '2'].map(i => `${i} hr`);
     const durationLabels = minLabels.concat(hourLabels);
 
+    const onChange = (event: FormEvent<HTMLInputElement>) => {
+        
+    }
+
     const durationChips = durationLabels.map(i => {
         return (
             <IonChip outline color="primary" key={i}>
-                <IonLabel>{i}</IonLabel>
+                <label>
+                    {i}
+                    <input type="radio" name="duration" value={i} onInput={onChange}></input>
+                </label>
             </IonChip>
         )
     })
@@ -24,7 +31,11 @@ const BreaksForm: React.FC = () => {
             </IonItem>
 
             <IonLabel>Duration</IonLabel>
-            {durationChips}
+            <IonList>
+                <IonRadioGroup>
+                    {durationChips}
+                </IonRadioGroup>
+            </IonList>
 
             <IonItem>
                 <IonLabel>To</IonLabel>
