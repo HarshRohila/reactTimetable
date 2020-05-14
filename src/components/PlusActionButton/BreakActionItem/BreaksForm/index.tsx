@@ -1,52 +1,56 @@
-import React, { Fragment, FormEvent } from 'react';
-import { IonDatetime, IonItem, IonLabel, IonChip, IonInput, IonList, IonRadioGroup, IonRadio } from '@ionic/react';
+import React, { useState } from 'react';
+import { IonDatetime, IonItem, IonLabel, IonInput } from '@ionic/react';
 import './style.scss';
+import DurationChips from './DurationChips';
 
 const BreaksForm: React.FC = () => {
 
-    const minLabels = ['15', '30', '45'].map(i => `${i} mins`);
-    const hourLabels = ['1', '2'].map(i => `${i} hr`);
-    const durationLabels = minLabels.concat(hourLabels);
+    const handleDurationChange = (duration: string) => {
+        const toMins = (duration: string) => {
+            const [ magnitudeStr, unit ] = duration.split(' ');
+            const magnitude = parseInt( magnitudeStr );
 
-    const onChange = (event: FormEvent<HTMLInputElement>) => {
-        
+            return magnitude * (unit === 'hr' ? 60 : 1);
+        }
+
+        const [ hrs, mins ] = startTime.split(':').map( i => parseInt(i) );
+        const date = new Date();
+        date.setHours( hrs );
+        date.setMinutes( mins + toMins(duration) );
+
+        setEndTime( date.toString() );
     }
 
-    const durationChips = durationLabels.map(i => {
-        return (
-            <IonChip outline color="primary" key={i}>
-                <label>
-                    {i}
-                    <input type="radio" name="duration" value={i} onInput={onChange}></input>
-                </label>
-            </IonChip>
-        )
-    })
+    const [ startTime, setStartTime ] = useState('11:00');
+    const [ endTime, setEndTime ] = useState('12:00');
 
     return (
-        <Fragment>
+        <>
             <IonItem>
                 <IonLabel>From</IonLabel>
-                <IonDatetime displayFormat="HH:mm"></IonDatetime>
+                <IonDatetime 
+                    displayFormat="h:mm a" 
+                    value={startTime} 
+                    onIonChange={e => setStartTime(e.detail.value!)} />
             </IonItem>
 
             <IonLabel>Duration</IonLabel>
-            <IonList>
-                <IonRadioGroup>
-                    {durationChips}
-                </IonRadioGroup>
-            </IonList>
+
+            <DurationChips onDurationChange={handleDurationChange}/>
 
             <IonItem>
                 <IonLabel>To</IonLabel>
-                <IonDatetime displayFormat="HH:mm"></IonDatetime>
+                <IonDatetime 
+                    displayFormat="h:mm a"
+                    value={endTime} 
+                    onIonChange={e => setEndTime(e.detail.value!)} />
             </IonItem>
 
             <IonItem>
                 <IonLabel>Label</IonLabel>
                 <IonInput placeholder="Label"></IonInput>
             </IonItem>
-        </Fragment>
+        </>
     )
 }
 
