@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { IonDatetime, IonItem, IonLabel, IonInput } from '@ionic/react';
 import './style.scss';
 import DurationChips from './DurationChips';
+import DaysChips from '../../../DaysChips/lindex';
 
 const BreaksForm: React.FC = () => {
 
@@ -24,6 +25,10 @@ const BreaksForm: React.FC = () => {
     const [ startTime, setStartTime ] = useState('11:00');
     const [ endTime, setEndTime ] = useState('12:00');
 
+    const handleDaysChange = (days: string[]) => {
+        console.log(days);
+    }
+
     return (
         <>
             <IonItem>
@@ -45,6 +50,8 @@ const BreaksForm: React.FC = () => {
                     value={endTime} 
                     onIonChange={e => setEndTime(e.detail.value!)} />
             </IonItem>
+
+            <DaysChips onChange={handleDaysChange}/>
 
             <IonItem>
                 <IonLabel>Label</IonLabel>

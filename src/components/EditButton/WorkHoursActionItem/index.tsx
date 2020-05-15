@@ -13,16 +13,17 @@ const WorkHoursActionItem: React.FC<ContainerProps> = () => {
     const [ showModal, setShowModal ] = useState( false );
     const [ startTime, setStartTime ] = useState('09:00');
     const [ endTime, setEndTime ] = useState('15:00');
-    const [ days, setDays ] = useState<{ value: string, isChecked: boolean}[]>([]);
     const [ showToast, setShowToast ] = useState( false );
+
+    let selectedDays: string[] = [];
 
     const onSave = () => {
 
         store.getData().then(data => {
-            days.filter(day => day.isChecked)
+            selectedDays
                 .forEach(day => {
-                    data[day.value] = { 
-                        ...data[day.value], 
+                    data[day] = { 
+                        ...data[day], 
                         workHours: {
                             start: startTime, 
                             end: endTime
@@ -34,6 +35,10 @@ const WorkHoursActionItem: React.FC<ContainerProps> = () => {
                 .then(() => setShowToast( true ));
         });
 
+    }
+
+    const handleDaysChange = (days: string[]) => {
+        selectedDays = days;
     }
 
     const modal = 
@@ -49,8 +54,8 @@ const WorkHoursActionItem: React.FC<ContainerProps> = () => {
                 endTime={endTime}
                 setEndTime={setEndTime}
 
-                days={days}
-                setDays={setDays} />
+                onDaysChange={handleDaysChange}
+                />
 
         </ActionableModalCard>
 
