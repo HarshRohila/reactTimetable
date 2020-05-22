@@ -1,0 +1,56 @@
+$margin: 20px;
+$border-radius: 30px;
+
+ion-list {
+    height: 100%;
+    flex: 1;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    &.list-ios {
+        background-color: var(--ion-color-secondary);
+    }
+    ion-radio-group {
+        height: calc(100% - #{$margin}*2);
+        display: flex;
+        flex-direction: column;
+        border: 1px solid;
+        position: relative;
+        border-radius: $border-radius;
+        ion-item {
+            // --ion-color: var(--ion-color-primary);
+            &.item-radio-checked {
+                --ion-color-base: var(--ion-color-tertiary) !important;
+            }
+            // background-color: var(--ion-color-secondary);
+            &:first-child {
+                border-top-left-radius: $border-radius;
+                border-top-right-radius: $border-radius;
+            }
+            &:last-child {
+                border-bottom-left-radius: $border-radius;
+                border-bottom-right-radius: $border-radius;
+            }
+            --padding-start: 0;
+            --inner-padding-end: 0;
+            >div {
+                width: 100%;
+                height: 100%;
+                position: absolute;
+            }
+            display: flex;
+            flex: 1;
+            ion-label {
+                text-align: center;
+                margin-right: 0;
+            }
+            ion-radio {
+                --color-checked: var(--ion-color-tertiary);
+                position: absolute;
+                height: 100%;
+                margin: 0;
+                width: 100%;
+            }
+        }
+    }
+}
